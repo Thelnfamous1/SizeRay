@@ -2,6 +2,7 @@ package me.Thelnfamous1.size_ray.client;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import me.Thelnfamous1.size_ray.SizeRayMod;
+import me.Thelnfamous1.size_ray.SizeRayUtil;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.particles.ParticleTypes;
@@ -9,7 +10,6 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
-import virtuoel.pehkui.api.ScaleTypes;
 
 public class SizeRayModClient {
 
@@ -31,7 +31,7 @@ public class SizeRayModClient {
         } else if (!WAS_KEY_DOWN && isKeyDown) {
             // First press
             Vec3 center = player.getPosition(0);
-            float scale = ScaleTypes.BASE.getScaleData(player).getScale();
+            float scale = SizeRayUtil.getScale(player);
             int segments = (int) (24 * scale);
             double r = 2 * scale;
             for (int segmentStep = 0; segmentStep < segments; segmentStep++) {
@@ -50,4 +50,5 @@ public class SizeRayModClient {
         WAS_KEY_DOWN = isKeyDown;
 
     }
+
 }

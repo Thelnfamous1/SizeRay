@@ -10,6 +10,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.*;
 import net.minecraftforge.entity.PartEntity;
 import org.jetbrains.annotations.Nullable;
+import virtuoel.pehkui.api.ScaleData;
+import virtuoel.pehkui.api.ScaleTypes;
 
 import java.util.Optional;
 
@@ -52,5 +54,16 @@ public class SizeRayUtil {
     @Nullable
     static EnergyBeam getEnergyBeam(Level pLevel, int sizeRayBeamId) {
         return pLevel.getEntity(sizeRayBeamId) instanceof EnergyBeam entity ? entity : null;
+    }
+
+    static void addToBaseScale(Entity target, float scaleAddition) {
+        ScaleData scaleData = ScaleTypes.BASE.getScaleData(target);
+        float baseScale = scaleData.getBaseScale();
+        //SizeRayMod.LOGGER.info("Resizing {} from {} to {}", target, baseScale, baseScale + scaleAddition);
+        scaleData.setScale(baseScale + scaleAddition);
+    }
+
+    public static float getScale(Entity player) {
+        return ScaleTypes.BASE.getScaleData(player).getScale();
     }
 }

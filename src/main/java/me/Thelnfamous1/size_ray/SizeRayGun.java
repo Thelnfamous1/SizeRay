@@ -15,8 +15,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
-import virtuoel.pehkui.api.ScaleData;
-import virtuoel.pehkui.api.ScaleTypes;
 
 import java.util.Optional;
 
@@ -61,7 +59,6 @@ public class SizeRayGun extends Item {
             Optional<EntityHitResult> entityHitResult = SizeRayUtil.getEntityHitResult(pLivingEntity, SizeRayUtil.MAX_HIT_DISTANCE);
             entityHitResult.ifPresent(ehr -> {
                 Entity target = ehr.getEntity();
-                ScaleData scaleData = ScaleTypes.BASE.getScaleData(target);
                 float scaleAddition = SCALE_STEP;
                 SizeRayUserInterface sizeRayUser = SizeRayUserCapability.getCapability(pLivingEntity);
                 if(sizeRayUser.getSizeRayBeamId() != 0){
@@ -77,9 +74,7 @@ public class SizeRayGun extends Item {
                         }
                     }
                 }
-                float baseScale = scaleData.getBaseScale();
-                //SizeRayMod.LOGGER.info("Resizing {} from {} to {}", target, baseScale, baseScale + scaleAddition);
-                scaleData.setScale(baseScale + scaleAddition);
+                SizeRayUtil.addToBaseScale(target, scaleAddition);
             });
         }
     }
